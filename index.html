@@ -13,14 +13,15 @@
             <div class="total">Total: <span id="total">$0</span></div>
         </div>
 
-        <button class="big-btn" onclick="quickPay()">
-            <span class="big-btn-icon">+</span>
-            <span class="big-btn-text">Got Paid $50</span>
-            <span class="big-btn-sub">Tap to log today's payment</span>
-        </button>
+        <div class="add-row">
+            <span class="dollar">$</span>
+            <input type="number" id="amount" value="50" min="0">
+            <input type="date" id="date">
+            <button class="add-btn" onclick="addPayment()">+ Add</button>
+        </div>
 
         <div class="history" id="history">
-            <p class="empty">No payments yet. Hit the button above when you get paid!</p>
+            <p class="empty">No payments yet</p>
         </div>
 
         <div class="bottom-bar">
