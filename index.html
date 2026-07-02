@@ -3,146 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mentorship Payment Tracker</title>
+    <title>Payment Tracker</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Mentorship Payment Tracker</h1>
-            <p>Track payments from your students - no mixups</p>
-            <div class="header-actions">
-                <button class="btn-header" onclick="exportData()">Export Backup</button>
-                <button class="btn-header" onclick="importData()">Import Backup</button>
-            </div>
-        </header>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="label">Total Received</div>
-                <div class="value green" id="totalReceived">$0</div>
-            </div>
-            <div class="stat-card">
-                <div class="label">Pending</div>
-                <div class="value yellow" id="totalPending">$0</div>
-            </div>
-            <div class="stat-card">
-                <div class="label">Students</div>
-                <div class="value purple" id="studentCount">0</div>
-            </div>
+        <div class="header">
+            <h1>Payment Tracker</h1>
+            <div class="total">Total: <span id="total">$0</span></div>
         </div>
 
-        <!-- Student Management -->
-        <div class="section">
-            <div class="section-header">
-                <h2>Students</h2>
-                <button class="btn-primary" onclick="openStudentModal()">+ Add Student</button>
-            </div>
-            <div id="studentCards" class="student-cards">
-                <div class="empty-state">
-                    <p>No students yet. Add your first student above!</p>
-                </div>
-            </div>
+        <button class="big-btn" onclick="quickPay()">
+            <span class="big-btn-icon">+</span>
+            <span class="big-btn-text">Got Paid $50</span>
+            <span class="big-btn-sub">Tap to log today's payment</span>
+        </button>
+
+        <div class="history" id="history">
+            <p class="empty">No payments yet. Hit the button above when you get paid!</p>
         </div>
 
-        <!-- Payment History -->
-        <div class="section">
-            <div class="section-header">
-                <h2>Payment History</h2>
-                <div class="filter-row">
-                    <select id="filterStudent" onchange="renderPayments()">
-                        <option value="all">All Students</option>
-                    </select>
-                    <select id="filterStatus" onchange="renderPayments()">
-                        <option value="all">All Status</option>
-                        <option value="paid">Paid</option>
-                        <option value="pending">Pending</option>
-                    </select>
-                </div>
-            </div>
-            <ul class="payment-list" id="paymentList">
-                <li class="empty-state"><p>No payments recorded yet.</p></li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Add Student Modal -->
-    <div class="modal-overlay" id="studentModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 id="studentModalTitle">Add Student</h3>
-                <button class="btn-close" onclick="closeStudentModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Student Name</label>
-                    <input type="text" id="studentName" placeholder="e.g. Lurker">
-                </div>
-                <div class="form-group">
-                    <label>Payment Amount ($)</label>
-                    <input type="number" id="studentRate" value="50" min="0" step="1">
-                </div>
-                <div class="form-group">
-                    <label>Payment Schedule</label>
-                    <select id="studentSchedule">
-                        <option value="weekly">Weekly</option>
-                        <option value="biweekly">Bi-Weekly</option>
-                        <option value="monthly" selected>Monthly</option>
-                        <option value="custom">Custom / One-time</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Start Date</label>
-                    <input type="date" id="studentStart">
-                </div>
-                <div class="form-group">
-                    <label>Notes (optional)</label>
-                    <input type="text" id="studentNotes" placeholder="e.g. Discord mentorship">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" onclick="closeStudentModal()">Cancel</button>
-                <button class="btn-primary" onclick="saveStudent()">Save Student</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add Payment Modal -->
-    <div class="modal-overlay" id="paymentModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3>Record Payment</h3>
-                <button class="btn-close" onclick="closePaymentModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Student</label>
-                    <select id="paymentStudent"></select>
-                </div>
-                <div class="form-group">
-                    <label>Amount ($)</label>
-                    <input type="number" id="paymentAmount" value="50" min="0" step="1">
-                </div>
-                <div class="form-group">
-                    <label>Date</label>
-                    <input type="date" id="paymentDate">
-                </div>
-                <div class="form-group">
-                    <label>Status</label>
-                    <select id="paymentStatus">
-                        <option value="paid">Paid</option>
-                        <option value="pending">Pending</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Note (optional)</label>
-                    <input type="text" id="paymentNote" placeholder="e.g. July payment">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" onclick="closePaymentModal()">Cancel</button>
-                <button class="btn-primary" onclick="savePayment()">Save Payment</button>
-            </div>
+        <div class="bottom-bar">
+            <button class="link-btn" onclick="exportData()">Export</button>
+            <button class="link-btn" onclick="importData()">Import</button>
+            <button class="link-btn" onclick="clearAll()">Clear All</button>
         </div>
     </div>
 
